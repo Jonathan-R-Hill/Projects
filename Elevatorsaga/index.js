@@ -1,5 +1,3 @@
-// https://play.elevatorsaga.com
-
 {
     init: function (elevators, floors) {
         console.clear();
@@ -76,7 +74,7 @@
         // Set a timer to switch spreadOut mode off
         setTimeout(function () {
             spreadOut = false;
-        }, 4000); // (5 seconds)
+        }, 2000); // (5 seconds)
     },
 
         update: function (dt, elevators, floors) {
