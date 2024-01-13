@@ -1,7 +1,8 @@
 Employee\NewEmployee.class
-Utility\ObjectReadWrite.class
 Utility\UserValidationCheck.class
+Employee\UpdateEmployee.class
 Objects\Employee.class
 Main\Main.class
+Utility\ObjectSerialize.class
 Main\ProgramChoice.class
 Utility\FileOperations.class

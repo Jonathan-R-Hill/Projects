@@ -1,6 +1,7 @@
 package Utility;
 
 import Objects.Employee;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,8 +11,8 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class ObjectSerialize {
 
-  public void serialize(Employee person, int totalEmployees) {
+  public void serializeNewEmployee(Employee person, int totalEmployees) {
     try {
       FileOutputStream fileOut = new FileOutputStream(
               System.getProperty("user.dir") + "/Employees/" + person.getName() + totalEmployees + ".ser");
@@ -32,17 +33,30 @@ public class ObjectSerialize {
     } catch (IOException i) {
       i.printStackTrace();
     }
-    
   }
 
-  public List<Employee> deserialize() {
-    List<Employee> allEmployees = new ArrayList<>();
+  public void serializeUpdateEmployee(Employee person, String existingPath) {
+    try {
+      FileOutputStream fileOut = new FileOutputStream(existingPath);
+      ObjectOutputStream file = new ObjectOutputStream(fileOut);
+      file.writeObject(person);
+
+      file.close();
+      fileOut.close();
+      System.out.println("Object Updated!");
+    } catch (IOException i) {
+      i.printStackTrace();
+    }
+  }
+
+  public Map<Employee, Path> deserialize() {
+    Map<Employee, Path> allEmployees = new HashMap<>();
 
     String directoryPath = System.getProperty("user.dir") + "/Employees/";
 
     try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(directoryPath), "*.ser")) {
       for (Path filePath : directoryStream) {
-        allEmployees.add(deserializeEmployee(filePath));
+        allEmployees.put(deserializeEmployee(filePath), filePath);
       }
     } catch (IOException e) {
       e.printStackTrace();
